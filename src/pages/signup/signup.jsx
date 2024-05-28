@@ -2,56 +2,15 @@ import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './signup.css';
+import useSignup from './useSignup';
 
 const Signup = () => {
-  const notify = () => toast("User Registered Successfully");
-
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    password: '',
-  });
-
-  const [isHovered, setIsHovered] = useState(false);
-  const [focusedInput, setFocusedInput] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted', formData);
-  };
-
-  const handleSignup = async () => {
-    try {
-      const response = await fetch('http://localhost:4000/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-    
-      const data = await response.json();
-      // console.log(data);
-      if (response.status === 200) {
-        console.log(data);
-      } 
-    } catch (error) {
-      console.log(error);
-    }
-  };
+ const {notify,formData,isHovered,setIsHovered,focusedInput,setFocusedInput,handleChange,handleSignup,handleSubmit} = useSignup();
 
   return (
-    <div className="signup-wrapper"> {/* Use className instead of style */}
-      <form className="signup-form" onSubmit={handleSubmit}> {/* Use className instead of style */}
-        <h2 className="title">Sign Up</h2> {/* Use className instead of style */}
+    <div className="signup-wrapper"> 
+      <form className="signup-form" onSubmit={handleSubmit}> 
+        <h2 className="title">Sign Up</h2> 
         <input
           type="text"
           name="name"
