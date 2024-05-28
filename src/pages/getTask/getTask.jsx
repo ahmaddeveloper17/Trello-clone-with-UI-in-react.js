@@ -1,8 +1,11 @@
 
 
 import React, { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function GetTask() {
+  const notify = () => toast("Tasks Get succesfully.");
+
   const [taskData, setTaskData] = useState(null);
   const [error, setError] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -129,7 +132,11 @@ function GetTask() {
   return (
     <div style={{ textAlign: 'center' }}>
       <h2>Task Viewer</h2>
-      <button onClick={handleGetTask} style={{ margin: '10px' }}>
+      <ToastContainer />
+      <button  onClick={() => {
+    handleGetTask();
+    notify();
+  }} style={{ margin: '10px' }}>
         Get Task
       </button>
       {taskData && taskData.tasks && (

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const styles = {
   signupWrapper: {
     display: 'flex',
@@ -60,6 +61,8 @@ const styles = {
 };
 
 const Signin = () => {
+  const notify = () => toast("User Login Successfully");
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -96,7 +99,7 @@ const Signin = () => {
     if (response.status === 200) {
       console.log(data);
       localStorage.setItem('token', data.token); 
-
+window.location.href='addTask'
     } else {
       console.log(data.error);
     }
@@ -145,10 +148,14 @@ const Signin = () => {
           onFocus={() => setFocusedInput('password')}
           onBlur={() => setFocusedInput(null)}
         />
+                  <ToastContainer />
+
         <button
           type="submit"
-          onClick={handleSignin}
-          style={{
+          onClick={() => {
+            handleSignin();
+            notify();
+          }}          style={{
             ...styles.button,
             ...(isHovered && styles.buttonHover),
           }}

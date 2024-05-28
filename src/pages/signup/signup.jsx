@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const styles = {
   signupWrapper: {
     display: 'flex',
@@ -60,6 +61,8 @@ const styles = {
 };
 
 const Signup = () => {
+  const notify = () => toast("User Registered Successfully");
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -80,30 +83,38 @@ const Signup = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted', formData);
-    // Here you can add logic to handle signup (e.g., API call)
   };
 
   const handleSignup = async () => {
-    const response = await fetch('http://localhost:4000/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
-    const data = await response.json();
-    // console.log(data);
-    if (response.status === 200) {
-      console.log(data);
-    } else {
-      console.log(data.error);
+    try {
+      
+      const response = await fetch('http://localhost:4000/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+        
+      }
+    );
+    
+      const data = await response.json();
+      // console.log(data);
+      if (response.status === 200) {
+        console.log(data);
+      } 
+    } catch (error) {
+      console.log(error);
     }
+    
   };
 
   return (
     <div style={styles.signupWrapper}>
       <form style={styles.signupForm} onSubmit={handleSubmit}>
         <h2 style={styles.title}>Sign Up</h2>
+        <div>
+      </div>
         <input
           type="text"
           name="name"
@@ -143,20 +154,25 @@ const Signup = () => {
           onFocus={() => setFocusedInput('password')}
           onBlur={() => setFocusedInput(null)}
         />
+          <ToastContainer />
         
             
         <button
-          type="submit"
-          onClick={handleSignup}
-          style={{
-            ...styles.button,
-            ...(isHovered && styles.buttonHover),
-        }}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-        >
-          Sign Up
-        </button>
+  type="submit"
+  onClick={() => {
+    handleSignup();
+    notify();
+  }}
+  style={{
+    ...styles.button,
+    ...(isHovered && styles.buttonHover),
+  }}
+  onMouseEnter={() => setIsHovered(true)}
+  onMouseLeave={() => setIsHovered(false)}
+>
+  Sign Up
+</button>
+
         <div style={styles.footer}>
           Already have an account? <a href="/Signin">Log in</a>
         </div>

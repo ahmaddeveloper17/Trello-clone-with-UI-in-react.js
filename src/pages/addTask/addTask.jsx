@@ -1,28 +1,31 @@
 import React, { useState } from 'react';
-
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const styles = {
   signupWrapper: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    backgroundColor: '#f0f2f5',
+    backgroundColor: '#F146CA',
   },
   signupForm: {
-    background: 'white',
+    background: '#D1235A',
     padding: '2rem',
     borderRadius: '8px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 20px rgba(2, 2, 2, 2.1)',
     width: '100%',
     maxWidth: '400px',
     boxSizing: 'border-box',
   },
   title: {
-    marginBottom: '1.5rem',
+    marginBottom: '1rem',
     color: '#333',
     textAlign: 'center',
     fontSize: '1.75rem',
     fontWeight: 'bold',
+marginTop:"-25px"
   },
   input: {
     width: '100%',
@@ -43,6 +46,7 @@ const styles = {
     border: 'none',
     borderRadius: '4px',
     backgroundColor: '#007bff',
+    marginBottom:"-3px",
     color: 'white',
     fontSize: '1rem',
     cursor: 'pointer',
@@ -60,7 +64,8 @@ const styles = {
 };
 
 const AddTask = () => {
-  
+  const notify = () => toast("Task added successfully");
+
   const [formData, setFormData] = useState({
     title: '',
     category: '',
@@ -160,6 +165,8 @@ const AddTask = () => {
           onFocus={() => setFocusedInput('dueDate')}
           onBlur={() => setFocusedInput(null)}
         />
+                  <ToastContainer />
+
         <input
           type="priority"
           name="priority"
@@ -177,8 +184,10 @@ const AddTask = () => {
             
         <button
           type="submit"
-          onClick={handleAddTask}
-          style={{
+          onClick={() => {
+            handleAddTask();
+            notify();
+          }}          style={{
             ...styles.button,
             ...(isHovered && styles.buttonHover),
         }}
@@ -187,6 +196,16 @@ const AddTask = () => {
         >
           Add Task
         </button>
+        <button
+  type="submit"
+  style={{
+    ...styles.button,
+    ...(isHovered && styles.buttonHover),
+    marginTop: "10px"
+  }}
+>
+  <Link to="/getTask" style={{ textDecoration: 'none', color: 'inherit' }}>Get Task</Link>
+</button>
       </form>
     </div>
   );
