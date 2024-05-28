@@ -1,64 +1,7 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const styles = {
-  signupWrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100vh',
-    backgroundColor: '#f0f2f5',
-  },
-  signupForm: {
-    background: 'white',
-    padding: '2rem',
-    borderRadius: '8px',
-    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
-    width: '100%',
-    maxWidth: '400px',
-    boxSizing: 'border-box',
-  },
-  title: {
-    marginBottom: '1.5rem',
-    color: '#333',
-    textAlign: 'center',
-    fontSize: '1.75rem',
-    fontWeight: 'bold',
-  },
-  input: {
-    width: '100%',
-    padding: '0.75rem',
-    marginBottom: '1rem',
-    border: '1px solid #ddd',
-    borderRadius: '4px',
-    boxSizing: 'border-box',
-    fontSize: '1rem',
-    transition: 'border-color 0.3s',
-  },
-  inputFocus: {
-    borderColor: '#007bff',
-  },
-  button: {
-    width: '100%',
-    padding: '0.75rem',
-    border: 'none',
-    borderRadius: '4px',
-    backgroundColor: '#007bff',
-    color: 'white',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s',
-  },
-  buttonHover: {
-    backgroundColor: '#0056b3',
-  },
-  footer: {
-    marginTop: '1rem',
-    textAlign: 'center',
-    fontSize: '0.9rem',
-    color: '#666',
-  },
-};
+import './signup.css';
 
 const Signup = () => {
   const notify = () => toast("User Registered Successfully");
@@ -87,16 +30,13 @@ const Signup = () => {
 
   const handleSignup = async () => {
     try {
-      
       const response = await fetch('http://localhost:4000/auth/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
-        
-      }
-    );
+      });
     
       const data = await response.json();
       // console.log(data);
@@ -106,25 +46,19 @@ const Signup = () => {
     } catch (error) {
       console.log(error);
     }
-    
   };
 
   return (
-    <div style={styles.signupWrapper}>
-      <form style={styles.signupForm} onSubmit={handleSubmit}>
-        <h2 style={styles.title}>Sign Up</h2>
-        <div>
-      </div>
+    <div className="signup-wrapper"> {/* Use className instead of style */}
+      <form className="signup-form" onSubmit={handleSubmit}> {/* Use className instead of style */}
+        <h2 className="title">Sign Up</h2> {/* Use className instead of style */}
         <input
           type="text"
           name="name"
           placeholder="Username"
           value={formData.name}
           onChange={handleChange}
-          style={{
-            ...styles.input,
-            ...(focusedInput === 'name' && styles.inputFocus),
-          }}
+          className="input" 
           onFocus={() => setFocusedInput('name')}
           onBlur={() => setFocusedInput(null)}
         />
@@ -134,10 +68,7 @@ const Signup = () => {
           placeholder="Email"
           value={formData.email}
           onChange={handleChange}
-          style={{
-            ...styles.input,
-            ...(focusedInput === 'email' && styles.inputFocus),
-          }}
+          className="input" 
           onFocus={() => setFocusedInput('email')}
           onBlur={() => setFocusedInput(null)}
         />
@@ -147,33 +78,24 @@ const Signup = () => {
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
-          style={{
-            ...styles.input,
-            ...(focusedInput === 'password' && styles.inputFocus),
-          }}
+          className="input" 
           onFocus={() => setFocusedInput('password')}
           onBlur={() => setFocusedInput(null)}
         />
-          <ToastContainer />
-        
-            
+        <ToastContainer />
         <button
-  type="submit"
-  onClick={() => {
-    handleSignup();
-    notify();
-  }}
-  style={{
-    ...styles.button,
-    ...(isHovered && styles.buttonHover),
-  }}
-  onMouseEnter={() => setIsHovered(true)}
-  onMouseLeave={() => setIsHovered(false)}
->
-  Sign Up
-</button>
-
-        <div style={styles.footer}>
+          type="submit"
+          onClick={() => {
+            handleSignup();
+            notify();
+          }}
+          className={`button ${isHovered ? 'button-hover' : ''}`} 
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          Sign Up
+        </button>
+        <div className="footer"> 
           Already have an account? <a href="/Signin">Log in</a>
         </div>
       </form>
