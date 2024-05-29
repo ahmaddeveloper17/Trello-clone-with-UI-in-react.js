@@ -5,7 +5,7 @@ import './signup.css';
 import useSignup from './useSignup';
 
 const Signup = () => {
- const {notify,formData,isHovered,setIsHovered,focusedInput,setFocusedInput,handleChange,handleSignup,handleSubmit} = useSignup();
+ const {notify,formData,isHovered,setIsHovered,setFocusedInput,handleChange,handleSignup,handleSubmit} = useSignup();
 
   return (
     <div className="signup-wrapper"> 
