@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './addTask.css';
-
+import { URL } from '../../constants';
 const useAddTask = () => {
   const notify = () => toast("Task added successfully");
 
@@ -32,7 +32,7 @@ const useAddTask = () => {
   };
 
   const handleAddTask = async () => {
-    const response = await fetch('http://localhost:4000/task/addTask', {
+    const response = await fetch(`${URL}/task/addTask`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

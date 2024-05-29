@@ -1,8 +1,9 @@
 
 
-import React, { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import  { useState } from 'react';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { URL } from '../../constants';
 function useGetTask() {
   const notify = () => toast("Tasks Get succesfully.");
 
@@ -20,7 +21,7 @@ function useGetTask() {
 
   const handleGetTask = async () => {
     try {
-      const response = await fetch('http://localhost:4000/task/getTask', {
+      const response = await fetch(`${URL}/task/getTask`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -42,7 +43,7 @@ function useGetTask() {
 
   const handleDeleteTask = async (taskId) => {
     try {
-      const response = await fetch(`http://localhost:4000/task/deleteTask/${taskId}`, {
+      const response = await fetch(`${URL}/task/deleteTask/${taskId}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ function useGetTask() {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`http://localhost:4000/task/updateTask/${selectedTask._id}`, {
+      const response = await fetch(`${URL}/task/updateTask/${selectedTask._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

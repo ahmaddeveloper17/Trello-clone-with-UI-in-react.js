@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './signup.css';
-
+import { URL } from '../../constants';
 const useSignup = () => {
   const notify = () => toast("User Registered Successfully");
 
@@ -30,7 +30,7 @@ const useSignup = () => {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch('http://localhost:4000/auth/register', {
+      const response = await fetch(`${URL}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
